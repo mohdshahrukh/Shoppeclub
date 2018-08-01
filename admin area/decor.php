@@ -7,7 +7,7 @@ include("includes/db.php");
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Add home's Fashion</title>
+<title>Add Home Decor Material</title>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
   <script>tinymce.init({ selector:'textarea' });</script>    
 <style type="text/css">
@@ -30,7 +30,7 @@ table{
 <table width="700px" height="650px" align="center" border='1px' >
 
 <tr align= "center">
-<td colspan="2" height=80px><h1>Insert home's Product</h1></td>
+<td colspan="2" height=80px><h1>Insert Home Decor's Product</h1></td>
 </tr>
 
 
@@ -99,7 +99,11 @@ table{
 </tr>
 
 <tr>
-<td align="right"><b>Product Cost</b></td>
+<td align="right"><b>Product Actual Cost</b></td>
+<td><input type="text" name="product_offer" /></td>
+</tr>
+<tr>
+<td align="right"><b>Product Offer Cost</b></td>
 <td><input type="text" name="product_cost" /></td>
 </tr>
 <tr>
@@ -133,6 +137,7 @@ if(isset($_POST['insert_product']))
 	$product_title=$_POST['product_title'];
     $product_cat=$_POST['product_cat'];
 	$product_price=$_POST['product_price'];
+	$product_offer=$_POST['product_offer'];
 	$product_cost=$_POST['product_cost'];
 	$product_desc=$_POST['product_desc'];
 	$product_size=$_POST['size'];
@@ -167,8 +172,8 @@ if(isset($_POST['insert_product']))
 		   move_uploaded_file($temp_name3,"product_images/$product_img3");
 		   move_uploaded_file($temp_name4,"product_images/$product_img4");
 		
-		$insert_product = "insert into home (cat_id,price_id,date,product_title,product_img1,product_img2,product_img3,product_img4,product_cost,product_size,product_desc,product_keywords)
-		                            values ('$product_cat','$product_price',NOW(),'$product_title','$product_img1','$product_img2','$product_img3','$product_img4','$product_cost','$product_size','$product_desc','$product_keywords')";
+		$insert_product = "insert into decor (cat_id,price_id,date,product_title,product_img1,product_img2,product_img3,product_img4,product_offer,product_cost,product_size,product_desc,product_keywords,tablename)
+		                            values ('$product_cat','$product_price',NOW(),'$product_title','$product_img1','$product_img2','$product_img3','$product_img4','$product_offer','$product_cost','$product_size','$product_desc','$product_keywords','decor')";
 	
 	    $run_product= mysqli_query($con, $insert_product);
 		

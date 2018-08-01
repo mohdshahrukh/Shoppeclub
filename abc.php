@@ -1,3 +1,6 @@
+<?php
+include("admin area/includes/db.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +30,7 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" href="index.php"><img height="300px" width="150px" src="img/core-img/logo.png" alt=""></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -41,51 +44,177 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a href="#">Shop</a>
+                            <li><a href="#">Fashion</a>
                                 <div class="megamenu">
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Women's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Blouses &amp; Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Rompers</a></li>
-                                        <li><a href="shop.html">Bras &amp; Panties</a></li>
+                                        <?php
+			   
+									   $get_cats = "select * from womencat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=women'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Men's Collection</li>
-                                        <li><a href="shop.html">T-Shirts</a></li>
-                                        <li><a href="shop.html">Polo</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
+                                       <?php
+			   
+									   $get_cats = "select * from mencat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=men'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Kid's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
+                                        <?php
+			   
+									   $get_cats = "select * from kidcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=kids'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <div class="single-mega cn-col-4">
                                         <img src="img/bg-img/bg-6.jpg" alt="">
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="single-product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="single-blog.html">Single Blog</a></li>
-                                    <li><a href="regular-page.html">Regular Page</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
+                            
+							<li><a href="#">Electronic</a>
+                                <div class="megamenu">
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Mobile's Collection</li>
+                                         <?php
+			   
+									   $get_cats = "select * from mobcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=mob'>$cat_title</a></li>";
+									  
+									   }
+									   
+									   ?>
+									   
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Laptop's Collection</li>
+                                       
+									   <?php
+			   
+									   $get_cats = "select * from laptopcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=laptop'>$cat_title</a></li>";
+									  	   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home Appliances</li>
+                                        <?php
+			   
+									   $get_cats = "select * from appliancecat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=appliance'>$cat_title</a></li>";
+									  
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <div class="single-mega cn-col-4">
+                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                    </div>
+                                </div>
                             </li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="#">Home & Furnitures</a>
+                                <div class="megamenu">
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home Decor </li>
+                                        <?php
+			   
+									   $get_cats = "select * from decorcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=decor'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Furniture</li>
+                                       <?php
+			   
+									   $get_cats = "select * from furniturecat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=furniture'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home's Furnishing</li>
+                                        <?php
+			   
+									   $get_cats = "select * from furnishingcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=furnishing'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <div class="single-mega cn-col-4">
+                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                    </div>
+                                </div>
+                            </li>
+                            
+							
+                            
                         </ul>
                     </div>
                     <!-- Nav End -->
@@ -103,11 +232,11 @@
                 </div>
                 <!-- Favourite Area -->
                 <div class="favourite-area">
-                    <a href="#"><img src="img/core-img/heart.svg" alt=""></a>
+                    <a href="wishlist.php"><img src="img/core-img/heart.svg" alt=""></a>
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
-                    <a href="#"><img src="img/core-img/user.svg" alt=""></a>
+                    <a href="signup.php"><img src="img/core-img/user.svg" alt=""></a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
@@ -203,7 +332,9 @@
     <!-- ##### Single Product Details Area Start ##### -->
     <section class="single_product_details_area d-flex align-items-center">
 
-        <!-- Single Product Thumb -->
+        
+		
+		<!-- Single Product Thumb -->
         <div class="single_product_thumb clearfix">
             <div class="product_thumbnail_slides owl-carousel">
                 <img src="img/product-img/product-big-1.jpg" alt="">

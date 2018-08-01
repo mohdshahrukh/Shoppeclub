@@ -54,9 +54,14 @@ table{
 </select></td>
 </tr>
 <tr>
+<td align="right"><b>Product Brand</b></td>
+<td><input type="text" name="product_brand" size="50"/></td>
+</tr>
+<tr>
 <td align="right" ><b>Product Title</b></td>
 <td ><input type="text" name="product_title" size="50"/></td>
 </tr>
+
 <tr>
 <td align="right"><b>Product Price</b></td>
 <td><select name="product_price"/>
@@ -135,6 +140,7 @@ table{
 if(isset($_POST['insert_product']))
 {
 	//text data variables
+	$product_brand=$_POST['product_brand'];
 	$product_title=$_POST['product_title'];
     $product_cat=$_POST['product_cat'];
 	$product_price=$_POST['product_price'];
@@ -160,7 +166,7 @@ if(isset($_POST['insert_product']))
 	
 	
 	
-	if($product_title=='' OR $product_cat=='' OR $product_price=='' OR $product_cost==''OR $product_size==''OR $product_color==' 'OR $product_desc=='' OR $product_keywords=='' OR $product_img1=='')
+	if($product_title==''OR $product_brand=='' OR $product_cat=='' OR $product_price=='' OR $product_cost==''OR $product_size==''OR $product_color==' 'OR $product_desc=='' OR $product_keywords=='' OR $product_img1=='')
 	{
 		echo "<script>alert('please fill all the fields')</script>";
 	    exit();
@@ -173,8 +179,8 @@ if(isset($_POST['insert_product']))
 		   move_uploaded_file($temp_name3,"product_images/$product_img3");
 		   move_uploaded_file($temp_name4,"product_images/$product_img4");
 		
-		$insert_product = "insert into appliance (cat_id,price_id,date,product_title,product_img1,product_img2,product_img3,product_img4,product_cost,product_size,product_color,product_desc,product_keywords)
-		                            values ('$product_cat','$product_price',NOW(),'$product_title','$product_img1','$product_img2','$product_img3','$product_img4','$product_cost','$product_size','$product_color','$product_desc','$product_keywords')";
+		$insert_product = "insert into appliance (cat_id,price_id,date,product_brand,product_title,product_img1,product_img2,product_img3,product_img4,product_cost,product_size,product_color,product_desc,product_keywords,tablename)
+		                            values ('$product_cat','$product_price',NOW(),'$product_brand','$product_title','$product_img1','$product_img2','$product_img3','$product_img4','$product_cost','$product_size','$product_color','$product_desc','$product_keywords','appliance')";
 	
 	    $run_product= mysqli_query($con, $insert_product);
 	

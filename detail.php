@@ -1,3 +1,6 @@
+<?php
+include("admin area/includes/db.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +30,7 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" href="index.php"><img height="300px" width="150px" src="img/core-img/logo.png" alt=""></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -41,51 +44,177 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a href="#">Shop</a>
+                            <li><a href="#">Fashion</a>
                                 <div class="megamenu">
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Women's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Blouses &amp; Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Rompers</a></li>
-                                        <li><a href="shop.html">Bras &amp; Panties</a></li>
+                                        <?php
+			   
+									   $get_cats = "select * from womencat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=women'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Men's Collection</li>
-                                        <li><a href="shop.html">T-Shirts</a></li>
-                                        <li><a href="shop.html">Polo</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
+                                       <?php
+			   
+									   $get_cats = "select * from mencat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=men'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Kid's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
+                                        <?php
+			   
+									   $get_cats = "select * from kidcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=kids'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <div class="single-mega cn-col-4">
                                         <img src="img/bg-img/bg-6.jpg" alt="">
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="single-product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="single-blog.html">Single Blog</a></li>
-                                    <li><a href="regular-page.html">Regular Page</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
+                            
+							<li><a href="#">Electronic</a>
+                                <div class="megamenu">
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Mobile's Collection</li>
+                                         <?php
+			   
+									   $get_cats = "select * from mobcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=mob'>$cat_title</a></li>";
+									  
+									   }
+									   
+									   ?>
+									   
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Laptop's Collection</li>
+                                       
+									   <?php
+			   
+									   $get_cats = "select * from laptopcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=laptop'>$cat_title</a></li>";
+									  	   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home Appliances</li>
+                                        <?php
+			   
+									   $get_cats = "select * from appliancecat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=appliance'>$cat_title</a></li>";
+									  
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <div class="single-mega cn-col-4">
+                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                    </div>
+                                </div>
                             </li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="#">Home & Furnitures</a>
+                                <div class="megamenu">
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home Decor </li>
+                                        <?php
+			   
+									   $get_cats = "select * from decorcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=decor'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Furniture</li>
+                                       <?php
+			   
+									   $get_cats = "select * from furniturecat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=furniture'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home's Furnishing</li>
+                                        <?php
+			   
+									   $get_cats = "select * from furnishingcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=furnishing'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <div class="single-mega cn-col-4">
+                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                    </div>
+                                </div>
+                            </li>
+                            
+							
+                            
                         </ul>
                     </div>
                     <!-- Nav End -->
@@ -103,11 +232,11 @@
                 </div>
                 <!-- Favourite Area -->
                 <div class="favourite-area">
-                    <a href="#"><img src="img/core-img/heart.svg" alt=""></a>
+                    <a href="wishlist.php"><img src="img/core-img/heart.svg" alt=""></a>
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
-                    <a href="#"><img src="img/core-img/user.svg" alt=""></a>
+                    <a href="signup.php"><img src="img/core-img/user.svg" alt=""></a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
@@ -200,67 +329,84 @@
     </div>
     <!-- ##### Right Side Cart End ##### -->
 
-    <!-- ##### Blog Wrapper Area Start ##### -->
-    <div class="single-blog-wrapper">
-
-        <!-- Single Blog Post Thumb -->
-        <div class="single-blog-post-thumb">
-            <img src="img/bg-img/bg-7.jpg" alt="">
-        </div>
-
-        <!-- Single Blog Content Wrap -->
-        <div class="single-blog-content-wrapper d-flex">
-
-            <!-- Blog Content -->
-            <div class="single-blog--text">
-                <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis perferendis rem accusantium ducimus animi nesciunt expedita omnis aut quas molestias!</h2>
-                <p>Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin. Praesent at tempus lectus, eleifend blandit felis. Fusce augue arcu, consequat a nisl aliquet, consectetur elementum turpis. Donec iaculis lobortis nisl, et viverra risus imperdiet eu. Etiam mollis posuere elit non sagittis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis arcu a magna sodales venenatis. Integer non diam sit amet magna luctus mollis ac eu nisi. In accumsan tellus ut dapibus blandit.</p>
-
-                <blockquote>
-                    <h6><i class="fa fa-quote-left" aria-hidden="true"></i> Quisque sagittis non ex eget vestibulum. Sed nec ultrices dui. Cras et sagittis erat. Maecenas pulvinar, turpis in dictum tincidunt, dolor nibh lacinia lacus.</h6>
-                    <span>Liam Neeson</span>
-                </blockquote>
-
-                <p>Praesent ac magna sed massa euismod congue vitae vitae risus. Nulla lorem augue, mollis non est et, eleifend elementum ante. Nunc id pharetra magna. Praesent vel orci ornare, blandit mi sed, aliquet nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+    <!-- ##### Single Product Details Area Start ##### -->
+    <section class="single_product_details_area d-flex align-items-center">
+		<?php 
+		
+		$id = $_GET['id'];
+		$table = $_GET['table'];
+		$get_cats = "select * from $table where id=$id";
+		
+	   $run_cats = mysqli_query($con, $get_cats);
+	   $row_cats = mysqli_fetch_array($run_cats);
+	      
+		   $id= $row_cats['id']; 
+		   if ($table!='mob' and $table!='laptop' and $table!='decor' and $table!='furniture' and $table!='furnishing' ){
+		   $product_brand=$row_cats['product_brand'];}
+		   $product_title=$row_cats['product_title'];
+		   $product_img1=$row_cats['product_img1'];
+		   $product_img2=$row_cats['product_img2'];
+		   $product_img3=$row_cats['product_img3'];
+		   $product_img4=$row_cats['product_img4'];
+		   $product_cost=$row_cats['product_cost'];
+		   $product_offer=$row_cats['product_offer'];
+		   $product_desc=$row_cats['product_desc'];
+		echo"
+        <!-- Single Product Thumb -->
+        <div class='single_product_thumb clearfix'>
+            <div class='product_thumbnail_slides owl-carousel'>
+                <center><img style='height:600px; width:450px;' src='admin area/product_images/$product_img1' alt=''></center>
+                <center><img style='height:600px; width:450px;' src='admin area/product_images/$product_img2' alt=''></center>
+                <center><img style='height:600px; width:450px;' src='admin area/product_images/$product_img3' alt=''></center>
+                <center><img style='height:600px; width:450px;' src='admin area/product_images/$product_img4' alt=''></center>
+               
             </div>
+        </div>";
 
-            <!-- Related Blog Post -->
-            <div class="related-blog-post">
-                <!-- Single Related Blog Post -->
-                <div class="single-related-blog-post">
-                    <img src="img/bg-img/rp1.jpg" alt="">
-                    <a href="#">
-                        <h5>Cras lobortis nisl nec libero pulvinar lacinia. Nunc sed ullamcorper massa</h5>
-                    </a>
-                </div>
-                <!-- Single Related Blog Post -->
-                <div class="single-related-blog-post">
-                    <img src="img/bg-img/rp2.jpg" alt="">
-                    <a href="#">
-                        <h5>Fusce tincidunt nulla magna, ac euismod quam viverra id. Fusce eget metus feugiat</h5>
-                    </a>
-                </div>
-                <!-- Single Related Blog Post -->
-                <div class="single-related-blog-post">
-                    <img src="img/bg-img/rp3.jpg" alt="">
-                    <a href="#">
-                        <h5>Etiam leo nibh, consectetur nec orci et, tempus tempus ex</h5>
-                    </a>
-                </div>
-                <!-- Single Related Blog Post -->
-                <div class="single-related-blog-post">
-                    <img src="img/bg-img/rp4.jpg" alt="">
-                    <a href="#">
-                        <h5>Sed viverra pellentesque dictum. Aenean ligula justo, viverra in lacus porttitor</h5>
-                    </a>
-                </div>
-            </div>
+        echo
+		"<!-- Single Product Description -->
+        <div class='single_product_desc clearfix'>";
+             if ($table!='mob' and $table!='laptop' and $table!='decor' and $table!='furniture' and $table!='furnishing'  ){
+			echo"<span>$product_brand</span>"; }
+            echo " <a href='cart.html'>
+                <h2>$product_title</h2>
+            </a>
+            <p class='product-price'><span class='old-price'>Rs. $product_offer</span>Rs. $product_cost</p>
+            <p class='product-desc'>$product_desc</p>
 
+            <!-- Form -->
+            <form class='cart-form clearfix' method='post'>
+                <!-- Select Box -->
+                <div class='select-box d-flex mt-50 mb-30'>
+                    <select name='select' id='productSize' class='mr-5'>
+                        <option value='value'>Size: XL</option>
+                        <option value='value'>Size: X</option>
+                        <option value='value'>Size: M</option>
+                        <option value='value'>Size: S</option>
+                    </select>
+                    <select name='select' id='productColor'>
+                        <option value='value'>Color: Black</option>
+                        <option value='value'>Color: White</option>
+                        <option value='value'>Color: Red</option>
+                        <option value='value'>Color: Purple</option>
+                    </select>
+                </div>
+                <!-- Cart & Favourite Box -->
+                <div class='cart-fav-box d-flex align-items-center'>
+                    <!-- Cart -->
+                    <button type='submit' name='addtocart' value='5' class='btn essence-btn'>Add to cart</button>
+                    <!-- Favourite -->
+                    <div class='product-favourite ml-4'>
+                        <a href='#' class='favme fa fa-heart'></a>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
-    <!-- ##### Blog Wrapper Area End ##### -->
+    </section>";?>
+    <!-- ##### Single Product Details Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
+	
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row">
@@ -337,6 +483,7 @@
 
         </div>
     </footer>
+	
     <!-- ##### Footer Area End ##### -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->

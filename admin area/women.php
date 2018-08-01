@@ -58,6 +58,10 @@ table{
 <td ><input type="text" name="product_title" size="50"/></td>
 </tr>
 <tr>
+<td align="right" ><b>Product Brand</b></td>
+<td ><input type="text" name="product_brand" size="50"/></td>
+</tr>
+<tr>
 <td align="right"><b>Product Price</b></td>
 <td><select name="product_price"/>
 <option>Select as per price</option>
@@ -99,7 +103,11 @@ table{
 </tr>
 
 <tr>
-<td align="right"><b>Product Cost</b></td>
+<td align="right"><b>Product Actual Price</b></td>
+<td><input type="text" name="product_offer" /></td>
+</tr>
+<tr>
+<td align="right"><b>Product Offer Price</b></td>
 <td><input type="text" name="product_cost" /></td>
 </tr>
 <tr>
@@ -145,13 +153,15 @@ table{
 if(isset($_POST['insert_product']))
 {
 	//text data variables
-	echo $product_title=$_POST['product_title'];
-    echo $product_cat=$_POST['product_cat'];
-	echo $product_price=$_POST['product_price'];
-	echo $product_cost=$_POST['product_cost'];
-	echo $product_desc=$_POST['product_desc'];
-	echo $product_size=$_POST['size'];
-	echo $product_keywords=$_POST['product_keywords'];
+	$product_title=$_POST['product_title'];
+	$product_brand=$_POST['product_brand'];
+     $product_cat=$_POST['product_cat'];
+	 $product_price=$_POST['product_price'];
+	 $product_offer=$_POST['product_offer'];
+	 $product_cost=$_POST['product_cost'];
+	$product_desc=$_POST['product_desc'];
+    $product_size=$_POST['size'];
+ $product_keywords=$_POST['product_keywords'];
 	
 	
 	//image_names
@@ -182,8 +192,8 @@ if(isset($_POST['insert_product']))
 		   move_uploaded_file($temp_name3,"product_images/$product_img3");
 		   move_uploaded_file($temp_name4,"product_images/$product_img4");
 		
-		$insert_product = "insert into women (cat_id,price_id,date,product_title,product_img1,product_img2,product_img3,product_img4,product_cost,product_size,product_desc,product_keywords)
-									  values ('$product_cat','$product_price',NOW(),'$product_title','$product_img1','$product_img2','$product_img3','$product_img4','$product_cost','$product_size','$product_desc','$product_keywords')";
+		$insert_product = "insert into women (cat_id,price_id,date,product_title,product_brand,product_img1,product_img2,product_img3,product_img4,product_offer,product_cost,product_size,product_desc,product_keywords,tablename)
+									  values ('$product_cat','$product_price',NOW(),'$product_title','$product_brand','$product_img1','$product_img2','$product_img3','$product_img4','$product_offer','$product_cost','$product_size','$product_desc','$product_keywords','women')";
 	
 	    $run_product= mysqli_query($con, $insert_product);
 		

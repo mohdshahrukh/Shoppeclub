@@ -1,3 +1,10 @@
+<?php
+include("admin area/includes/db.php");
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,11 +12,11 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Essence - Fashion Ecommerce Template</title>
+    <title>ShoppeClub - Fashion LifeStyle</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -27,7 +34,7 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" href="index.php"><img height="300px" width="150px" src="img/core-img/logo.png" alt=""></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -41,51 +48,177 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a href="#">Shop</a>
+                            <li><a href="#">Fashion</a>
                                 <div class="megamenu">
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Women's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Blouses &amp; Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Rompers</a></li>
-                                        <li><a href="shop.html">Bras &amp; Panties</a></li>
+                                        <?php
+			   
+									   $get_cats = "select * from womencat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=women'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Men's Collection</li>
-                                        <li><a href="shop.html">T-Shirts</a></li>
-                                        <li><a href="shop.html">Polo</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
+                                       <?php
+			   
+									   $get_cats = "select * from mencat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=men'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">Kid's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
+                                        <?php
+			   
+									   $get_cats = "select * from kidcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=kids'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
                                     </ul>
                                     <div class="single-mega cn-col-4">
                                         <img src="img/bg-img/bg-6.jpg" alt="">
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="single-product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="single-blog.html">Single Blog</a></li>
-                                    <li><a href="regular-page.html">Regular Page</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
+                            
+							<li><a href="#">Electronic</a>
+                                <div class="megamenu">
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Mobile's Collection</li>
+                                         <?php
+			   
+									   $get_cats = "select * from mobcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=mob'>$cat_title</a></li>";
+									  
+									   }
+									   
+									   ?>
+									   
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Laptop's Collection</li>
+                                       
+									   <?php
+			   
+									   $get_cats = "select * from laptopcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=laptop'>$cat_title</a></li>";
+									  	   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home Appliances</li>
+                                        <?php
+			   
+									   $get_cats = "select * from appliancecat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=appliance'>$cat_title</a></li>";
+									  
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <div class="single-mega cn-col-4">
+                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                    </div>
+                                </div>
                             </li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="#">Home & Furnitures</a>
+                                <div class="megamenu">
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home Decor </li>
+                                        <?php
+			   
+									   $get_cats = "select * from decorcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=decor'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Furniture</li>
+                                       <?php
+			   
+									   $get_cats = "select * from furniturecat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=furniture'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Home's Furnishing</li>
+                                        <?php
+			   
+									   $get_cats = "select * from furnishingcat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=furnishing'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                    </ul>
+                                    <div class="single-mega cn-col-4">
+                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                    </div>
+                                </div>
+                            </li>
+                            
+							
+                            
                         </ul>
                     </div>
                     <!-- Nav End -->
@@ -96,18 +229,18 @@
             <div class="header-meta d-flex clearfix justify-content-end">
                 <!-- Search Area -->
                 <div class="search-area">
-                    <form action="#" method="post">
+                    <form action="result.php" method="get">
                         <input type="search" name="search" id="headerSearch" placeholder="Type for search">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
                 <!-- Favourite Area -->
                 <div class="favourite-area">
-                    <a href="#"><img src="img/core-img/heart.svg" alt=""></a>
+                    <a href="wishlist.php"><img src="img/core-img/heart.svg" alt=""></a>
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
-                    <a href="#"><img src="img/core-img/user.svg" alt=""></a>
+                    <a href="signup.php"><img src="img/core-img/user.svg" alt=""></a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
@@ -201,12 +334,12 @@
     <!-- ##### Right Side Cart End ##### -->
 
     <!-- ##### Welcome Area Start ##### -->
-    <section class="welcome_area bg-img background-overlay" style="background-image: url(img/bg-img/bg-1.jpg);">
+    <section class="welcome_area bg-img background-overlay" style="background-image: url(img/bg-img/bg-1.png);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="hero-content">
-                        <h6>asoss</h6>
+                        <h3 style="color:blue;" >ShoppeClub</h3>
                         <h2>New Collection</h2>
                         <a href="#" class="btn essence-btn">view collection</a>
                     </div>
@@ -224,7 +357,9 @@
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-2.jpg);">
                         <div class="catagory-content">
-                            <a href="#">Clothing</a>
+						<?php
+                          echo  "<a href='shop.php?table=men'>Fashion</a>";
+						  ?>
                         </div>
                     </div>
                 </div>
@@ -232,7 +367,7 @@
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-3.jpg);">
                         <div class="catagory-content">
-                            <a href="#">Shoes</a>
+                            <a href="#">Electronics</a>
                         </div>
                     </div>
                 </div>
@@ -240,7 +375,7 @@
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-4.jpg);">
                         <div class="catagory-content">
-                            <a href="#">Accessories</a>
+                            <a href="#">Home & Furniture</a>
                         </div>
                     </div>
                 </div>
@@ -249,7 +384,7 @@
     </div>
     <!-- ##### Top Catagory Area End ##### -->
 
-    <!-- ##### CTA Area Start ##### -->
+    <!-- ##### CTA Area Start ##### 
     <div class="cta-area">
         <div class="container">
             <div class="row">
@@ -267,7 +402,7 @@
             </div>
         </div>
     </div>
-    <!-- ##### CTA Area End ##### -->
+     ##### CTA Area End ##### -->
 
     <!-- ##### New Arrivals Area Start ##### -->
     <section class="new_arrivals_area section-padding-80 clearfix">
@@ -285,139 +420,62 @@
             <div class="row">
                 <div class="col-12">
                     <div class="popular-products-slides owl-carousel">
-
+						 <?php
+			   
+					        $get_cats = "select * from men  where id < 13 union select * from women where id < 5 ";
+							$run_cats = mysqli_query($con, $get_cats);
+						   while($row_cats = mysqli_fetch_array($run_cats))
+						   {   
+						   $id= $row_cats['id']; 
+						   $table= $row_cats['tablename']; 
+						   $product_brand=$row_cats['product_brand'];
+						   $product_title=$row_cats['product_title'];
+						   $product_img1=$row_cats['product_img1'];
+						   $product_img2=$row_cats['product_img2'];
+						   $product_offer=$row_cats['product_offer'];
+						   $product_cost=$row_cats['product_cost'];
+						   
+						   echo "
+						   
+						  
+						
+						
                         <!-- Single Product -->
-                        <div class="single-product-wrapper">
+                        <div class='single-product-wrapper'>
                             <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-1.jpg" alt="">
+                            <div class='product-img'>
+                                <img style='height:320px;'  src='admin area/product_images/$product_img1' alt=''>
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-2.jpg" alt="">
+                                <img class='hover-img' src='admin area/product_images/$product_img2' alt=''>
                                 <!-- Favourite -->
-                                <div class="product-favourite">
-                                    <a href="#" class="favme fa fa-heart"></a>
+                                <div class='product-favourite'>
+                                    <a href='index.php' class='favme fa fa-heart'></a>
                                 </div>
                             </div>
                             <!-- Product Description -->
-                            <div class="product-description">
-                                <span>topshop</span>
-                                <a href="single-product-details.html">
-                                    <h6>Knot Front Mini Dress</h6>
+                            <div class='product-description'>
+                                <span>$product_brand</span>
+                                <a href='single-product-details.html'>
+                                    <h6>$product_title</h6>
                                 </a>
-                                <p class="product-price">$80.00</p>
+                                <p class='product-price'><span class='old-price'>Rs. $product_offer</span>Rs. $product_cost</p>
 
                                 <!-- Hover Content -->
-                                <div class="hover-content">
+                                <div class='hover-content'>
                                     <!-- Add to Cart -->
-                                    <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
+                                    <div class='add-to-cart-btn'>
+                                        <a href='detail.php?id=$id&table=$table' class='btn essence-btn'>Details</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>";
+						
+						}
+						   
+						?>
+						
 
-                        <!-- Single Product -->
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-2.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-3.jpg" alt="">
-                                <!-- Favourite -->
-                                <div class="product-favourite">
-                                    <a href="#" class="favme fa fa-heart"></a>
-                                </div>
-                            </div>
-                            <!-- Product Description -->
-                            <div class="product-description">
-                                <span>topshop</span>
-                                <a href="single-product-details.html">
-                                    <h6>Poplin Displaced Wrap Dress</h6>
-                                </a>
-                                <p class="product-price">$80.00</p>
-
-                                <!-- Hover Content -->
-                                <div class="hover-content">
-                                    <!-- Add to Cart -->
-                                    <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Product -->
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-3.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-4.jpg" alt="">
-
-                                <!-- Product Badge -->
-                                <div class="product-badge offer-badge">
-                                    <span>-30%</span>
-                                </div>
-
-                                <!-- Favourite -->
-                                <div class="product-favourite">
-                                    <a href="#" class="favme fa fa-heart"></a>
-                                </div>
-                            </div>
-                            <!-- Product Description -->
-                            <div class="product-description">
-                                <span>mango</span>
-                                <a href="single-product-details.html">
-                                    <h6>PETITE Crepe Wrap Mini Dress</h6>
-                                </a>
-                                <p class="product-price"><span class="old-price">$75.00</span> $55.00</p>
-
-                                <!-- Hover Content -->
-                                <div class="hover-content">
-                                    <!-- Add to Cart -->
-                                    <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Product -->
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-4.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-5.jpg" alt="">
-
-                                <!-- Product Badge -->
-                                <div class="product-badge new-badge">
-                                    <span>New</span>
-                                </div>
-
-                                <!-- Favourite -->
-                                <div class="product-favourite">
-                                    <a href="#" class="favme fa fa-heart"></a>
-                                </div>
-                            </div>
-                            <!-- Product Description -->
-                            <div class="product-description">
-                                <span>mango</span>
-                                <a href="single-product-details.html">
-                                    <h6>PETITE Belted Jumper Dress</h6>
-                                </a>
-                                <p class="product-price">$80.00</p>
-
-                                <!-- Hover Content -->
-                                <div class="hover-content">
-                                    <!-- Add to Cart -->
-                                    <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+					</div>
                 </div>
             </div>
         </div>
@@ -462,14 +520,14 @@
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="#"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="#"><img height="300px" width="150px" src="img/core-img/logo.png" alt=""></a>
                         </div>
                         <!-- Footer Menu -->
                         <div class="footer_menu">
                             <ul>
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                              <?php echo"<li><a href='result.php?search=#'>Shop</a></li>";?>
+                                <li><a href="blog.html"></a></li>
+                                <li><a href="contact.php">Contact</a></li>
                             </ul>
                         </div>
                     </div>

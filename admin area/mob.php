@@ -7,7 +7,7 @@ include("includes/db.php");
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Add mob's Fashion</title>
+<title>Add Mob</title>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
   <script>tinymce.init({ selector:'textarea' });</script>    
 <style type="text/css">
@@ -30,7 +30,7 @@ table{
 <table width="700px" height="650px" align="center" border='1px' >
 
 <tr align= "center">
-<td colspan="2" height=80px><h1>Insert Mob & Product</h1></td>
+<td colspan="2" height=80px><h1>Insert Mobile</h1></td>
 </tr>
 
 
@@ -192,8 +192,8 @@ if(isset($_POST['insert_product']))
 		   move_uploaded_file($temp_name3,"product_images/$product_img3");
 		   move_uploaded_file($temp_name4,"product_images/$product_img4");
 		
-		$insert_product = "insert into mob (cat_id,price_id,date,product_title,product_img1,product_img2,product_img3,product_img4,product_cost,product_size,product_color,product_ram,product_rom,product_battery,product_camera,product_desc,product_keywords)
-		                            values ('$product_cat','$product_price',NOW(),'$product_title','$product_img1','$product_img2','$product_img3','$product_img4','$product_cost','$product_size','$product_color','$product_ram','$product_rom','$product_battery','$product_camera','$product_desc','$product_keywords')";
+		$insert_product = "insert into mob (cat_id,price_id,date,product_title,product_img1,product_img2,product_img3,product_img4,product_cost,product_size,product_color,product_ram,product_rom,product_battery,product_camera,product_desc,product_keywords,tablename)
+		                            values ('$product_cat','$product_price',NOW(),'$product_title','$product_img1','$product_img2','$product_img3','$product_img4','$product_cost','$product_size','$product_color','$product_ram','$product_rom','$product_battery','$product_camera','$product_desc','$product_keywords','mob')";
 	
 	    $run_product= mysqli_query($con, $insert_product);
 		
