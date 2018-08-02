@@ -1,6 +1,6 @@
 <?php
 include("admin area/includes/db.php");
-
+include ("functions.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -226,22 +226,20 @@ include("admin area/includes/db.php");
             <div class="header-meta d-flex clearfix justify-content-end">
                 <!-- Search Area -->
                 <div class="search-area">
-                    <form action="#" method="post">
+                    <form action="result.php" method="get">
                         <input type="search" name="search" id="headerSearch" placeholder="Type for search">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
                 <!-- Favourite Area -->
-                <div class="favourite-area">
-                    <a href="wishlist.php"><img src="img/core-img/heart.svg" alt=""></a>
-                </div>
+                
                 <!-- User Login Info -->
                 <div class="user-login-info">
                     <a href="signup.php"><img src="img/core-img/user.svg" alt=""></a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span><?php total_items();?></span></a>
                 </div>
             </div>
 
@@ -256,60 +254,48 @@ include("admin area/includes/db.php");
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span><?php total_items();?></span></a>
         </div>
 
         <div class="cart-content d-flex">
-
-            <!-- Cart List Area -->
+<!-- Cart List Area -->
             <div class="cart-list">
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-1.jpg" class="cart-thumb" alt="">
+			<?php
+			$ip = getIp();
+			
+			$sel="select * from cart where ip = '$ip'";
+			$res=mysqli_query($con,$sel);
+			while($r=mysqli_fetch_array($res))
+			{
+			
+			 $ip = $r[1];
+			 $id = $r[2];
+			 $table = $r[3];
+			 
+			 
+			$new_query = "select * from $table where id='$id'";
+			$run_query = mysqli_query($con,$new_query);
+			
+			while($row_cats = mysqli_fetch_array($run_query)){
+				$title=$row_cats['product_title'];
+				$cost=$row_cats['product_cost'];
+				$size=$row_cats['product_size'];
+				$product_img1=$row_cats['product_img1'];
+				echo "<div class='single-cart-item'>
+                    <a href='#' class='product-image'>
+                        <center><a href='detail.php?id=$id&table=$table'><img style='height:240px; width:150px;' src='admin area/product_images/$product_img1' class='cart-thumb' alt=''></a></center>
                         <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
+                        <div class='cart-item-desc'>
+                             
+                            <h6>$title</h6>
+                            <p class='price'>Rs. $cost</p>
                         </div>
                     </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-2.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-3.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
+			</div>";
+				
+			}
+			}
+		   ?>
             </div>
 
             <!-- Cart Summary -->
@@ -317,13 +303,14 @@ include("admin area/includes/db.php");
 
                 <h2>Summary</h2>
                 <ul class="summary-table">
-                    <li><span>subtotal:</span> <span>$274.00</span></li>
+				
+                    <li><span>subtotal:</span> <span><?php total_rice();?></span></li>
                     <li><span>delivery:</span> <span>Free</span></li>
                     <li><span>discount:</span> <span>-15%</span></li>
-                    <li><span>total:</span> <span>$232.00</span></li>
+                    <li><span>total:</span> <span><?php total_price();?></span></li>
                 </ul>
                 <div class="checkout-btn mt-100">
-                    <a href="checkout.html" class="btn essence-btn">check out</a>
+                    <a href="checkout.php" class="btn essence-btn">check out</a>
                 </div>
             </div>
         </div>
@@ -567,6 +554,28 @@ include("admin area/includes/db.php");
                                             
                                         </ul>
                                     </li>
+									<li data-toggle="collapse" data-target="#accessories" class="collapsed">
+                                        <a href="#">Price Category</a>
+                                        <ul class="sub-menu collapse" id="accessories">
+                                          <?php   
+											echo "<li><a href='shop.php?table=appliance'>All</a></li>";
+											
+			   
+									   $get_cats = "select * from pricecat";
+									   $run_cats = mysqli_query($con, $get_cats);
+									   while($row_cats = mysqli_fetch_array($run_cats))
+									   {   
+									   $cat_id= $row_cats['cat_id']; 
+									   $cat_title=$row_cats['cat_title'];
+									   echo "<li><a href='shop.php?cat=$cat_id&table=appliance'>$cat_title</a></li>";
+									   
+									   }
+									   
+									   ?>
+                                            
+                                            
+                                        </ul>
+                                    </li>
                                 </ul>
                             </div>
 							<?php } ?>
@@ -574,43 +583,10 @@ include("admin area/includes/db.php");
                         </div>
 
                         <!-- ##### Single Widget ##### -->
-                        <div class="widget price mb-50">
-                            <!-- Widget Title -->
-                            <h6 class="widget-title mb-30">Filter by</h6>
-                            <!-- Widget Title 2 -->
-                            <p class="widget-title2 mb-30">Price</p>
-
-                            <div class="widget-desc">
-                                <div class="slider-range">
-                                    <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-                                    <div class="range-price">Range: $49.00 - $360.00</div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <!-- ##### Single Widget ##### -->
-                        <div class="widget color mb-50">
-                            <!-- Widget Title 2 -->
-                            <p class="widget-title2 mb-30">Color</p>
-                            <div class="widget-desc">
-                                <ul class="d-flex">
-                                    <li><a href="#" class="color1"></a></li>
-                                    <li><a href="#" class="color2"></a></li>
-                                    <li><a href="#" class="color3"></a></li>
-                                    <li><a href="#" class="color4"></a></li>
-                                    <li><a href="#" class="color5"></a></li>
-                                    <li><a href="#" class="color6"></a></li>
-                                    <li><a href="#" class="color7"></a></li>
-                                    <li><a href="#" class="color8"></a></li>
-                                    <li><a href="#" class="color9"></a></li>
-                                    <li><a href="#" class="color10"></a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        
 
                         <!-- ##### Single Widget ##### -->
                         <div class="widget brands mb-50">
@@ -631,33 +607,11 @@ include("admin area/includes/db.php");
 
                 <div class="col-12 col-md-8 col-lg-9">
                     <div class="shop_grid_product_area">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="product-topbar d-flex align-items-center justify-content-between">
-                                    <!-- Total Products -->
-                                    <div class="total-products">
-                                        <p><span>186</span> products found</p>
-                                    </div>
-                                    <!-- Sorting -->
-                                    <div class="product-sorting d-flex">
-                                        <p>Sort by:</p>
-                                        <form action="#" method="get">
-                                            <select name="select" id="sortByselect">
-                                                <option value="value">Highest Rated</option>
-                                                <option value="value">Newest</option>
-                                                <option value="value">Price: $$ - $</option>
-                                                <option value="value">Price: $ - $$</option>
-                                            </select>
-                                            <input type="submit" class="d-none" value="">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div class="row">
 							<?php
-							$r = 30;
+							
 							       if (isset($_GET['cat'])){
 								   $id = $_GET['cat'];
 									$table = $_GET['table'];
@@ -666,9 +620,9 @@ include("admin area/includes/db.php");
 								   else{
 									    $table = $_GET['table'];
 										$get_cats = "select * from $table";}
-									   $run_cats = mysqli_query($con, $get_cats);
-									   while($row_cats = mysqli_fetch_array($run_cats))
-									   {   
+									    $run_cats = mysqli_query($con, $get_cats);
+									    while($row_cats = mysqli_fetch_array($run_cats))
+									     {   
 										   $id= $row_cats['id']; 
 										   if ($table!='mob' and $table!='laptop' and $table!='decor' and $table!='furniture' and $table!='furnishing')
 										   { $product_brand=$row_cats['product_brand'];}
@@ -678,7 +632,7 @@ include("admin area/includes/db.php");
 										   $product_offer=$row_cats['product_offer'];
 										   $product_cost=$row_cats['product_cost'];
 										   
-									   echo 
+									    echo 
 									   
 									   
                             "<!-- Single Product -->
@@ -691,9 +645,7 @@ include("admin area/includes/db.php");
                                         <img class='hover-img' src='admin area/product_images/$product_img2' alt=''>
 
                                         <!-- Product Badge -->
-                                        <div class='product-badge offer-badge'>
-                                            <span>-$r%</span>
-                                        </div>
+                                        
                                         <!-- Favourite -->
                                         <div class='product-favourite'>
                                             <a href='#' class='favme fa fa-heart'></a>
@@ -720,7 +672,7 @@ include("admin area/includes/db.php");
                                     </div>
                                 </div>
                             </div>";
-									   $r = $r + 4;
+									   
 									   }
 									   
 									   ?>
@@ -730,24 +682,13 @@ include("admin area/includes/db.php");
                         </div>
                     </div>
                     <!-- Pagination -->
-                    <nav aria-label="navigation">
-                        <ul class="pagination mt-50 mb-70">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">21</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
-                    </nav>
+                    
                 </div>
             </div>
         </div>
     </section>
     <!-- ##### Shop Grid Area End ##### -->
-
-    <!-- ##### Footer Area Start ##### -->
+ <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row">
@@ -756,13 +697,15 @@ include("admin area/includes/db.php");
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="#"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="index.php"><img style= "height:300px; width:150px;" src="img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Footer Menu -->
+						
                         <div class="footer_menu">
                             <ul>
-                                <li><a href="shop.php">Shop</a></li>
-                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="shop.php?table=men">Fashion</a></li>
+                                <li><a href="shop.php?table=mob">Electronics</a></li>
+                                <li><a href="shop.php?table=furniture">Home & Furniture</a></li>
                                 <li><a href="contact.php">Contact</a></li>
                             </ul>
                         </div>
@@ -816,7 +759,7 @@ include("admin area/includes/db.php");
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> RDR Infotech. All rights reserved
     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
@@ -825,6 +768,7 @@ include("admin area/includes/db.php");
         </div>
     </footer>
     <!-- ##### Footer Area End ##### -->
+
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>

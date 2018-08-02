@@ -1,6 +1,7 @@
 <?php
 include("admin area/includes/db.php");
-
+include("functions.php");
+session_start();
 ?>
 
 
@@ -234,17 +235,14 @@ include("admin area/includes/db.php");
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
-                <!-- Favourite Area -->
-                <div class="favourite-area">
-                    <a href="wishlist.php"><img src="img/core-img/heart.svg" alt=""></a>
-                </div>
+                
                 <!-- User Login Info -->
                 <div class="user-login-info">
                     <a href="signup.php"><img src="img/core-img/user.svg" alt=""></a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span><?php total_items();?></span></a>
                 </div>
             </div>
 
@@ -259,60 +257,49 @@ include("admin area/includes/db.php");
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span><?php total_items();?></span></a>
         </div>
 
         <div class="cart-content d-flex">
 
             <!-- Cart List Area -->
             <div class="cart-list">
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-1.jpg" class="cart-thumb" alt="">
+			<?php
+			$ip = getIp();
+			
+			$sel="select * from cart where ip = '$ip'";
+			$res=mysqli_query($con,$sel);
+			while($r=mysqli_fetch_array($res))
+			{
+			
+			 $ip = $r[1];
+			 $id = $r[2];
+			 $table = $r[3];
+			 
+			 
+			$new_query = "select * from $table where id='$id'";
+			$run_query = mysqli_query($con,$new_query);
+			
+			while($row_cats = mysqli_fetch_array($run_query)){
+				$title=$row_cats['product_title'];
+				$cost=$row_cats['product_cost'];
+				$size=$row_cats['product_size'];
+				$product_img1=$row_cats['product_img1'];
+				echo "<div class='single-cart-item'>
+                    <a href='#' class='product-image'>
+                        <center><a href='detail.php?id=$id&table=$table'><img style='height:240px; width:150px;' src='admin area/product_images/$product_img1' class='cart-thumb' alt=''></a></center>
                         <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
+                        <div class='cart-item-desc'>
+                             
+                            <h6>$title</h6>
+                            <p class='price'>Rs. $cost</p>
                         </div>
                     </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-2.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-3.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
+			</div>";
+				
+			}
+			}
+		   ?>
             </div>
 
             <!-- Cart Summary -->
@@ -320,13 +307,18 @@ include("admin area/includes/db.php");
 
                 <h2>Summary</h2>
                 <ul class="summary-table">
-                    <li><span>subtotal:</span> <span>$274.00</span></li>
+				
+                    <li><span>subtotal:</span> <span><?php total_rice();?></span></li>
                     <li><span>delivery:</span> <span>Free</span></li>
                     <li><span>discount:</span> <span>-15%</span></li>
-                    <li><span>total:</span> <span>$232.00</span></li>
+                    <li><span>total:</span> <span><?php total_price();?></span></li>
                 </ul>
+				<div class="checkout-btn mt-50">
+                    <a href="cart.php" class="btn essence-btn">Update Cart</a>
+                    
+                </div>
                 <div class="checkout-btn mt-100">
-                    <a href="checkout.html" class="btn essence-btn">check out</a>
+                    <a href="checkout.php" class="btn essence-btn">check out</a>
                 </div>
             </div>
         </div>
@@ -341,7 +333,7 @@ include("admin area/includes/db.php");
                     <div class="hero-content">
                         <h3 style="color:blue;" >ShoppeClub</h3>
                         <h2>New Collection</h2>
-                        <a href="#" class="btn essence-btn">view collection</a>
+                        <a href="collection.php" class="btn essence-btn">view collection</a>
                     </div>
                 </div>
             </div>
@@ -367,7 +359,9 @@ include("admin area/includes/db.php");
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-3.jpg);">
                         <div class="catagory-content">
-                            <a href="#">Electronics</a>
+                            <?php
+                          echo  "<a href='shop.php?table=appliance'>Electronics</a>";
+						  ?>
                         </div>
                     </div>
                 </div>
@@ -375,7 +369,9 @@ include("admin area/includes/db.php");
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-4.jpg);">
                         <div class="catagory-content">
-                            <a href="#">Home & Furniture</a>
+                           <?php
+                          echo  "<a href='shop.php?table=furniture'>Home & Furniture</a>";
+						  ?>
                         </div>
                     </div>
                 </div>
@@ -421,8 +417,8 @@ include("admin area/includes/db.php");
                 <div class="col-12">
                     <div class="popular-products-slides owl-carousel">
 						 <?php
-			   
-					        $get_cats = "select * from men  where id < 13 union select * from women where id < 5 ";
+			   vart();
+					        $get_cats = "select * from men union select * from women union select * from kids union select * from mob union select * from laptop union select * from furniture union select * from decor union select * from appliance order by rand() ";
 							$run_cats = mysqli_query($con, $get_cats);
 						   while($row_cats = mysqli_fetch_array($run_cats))
 						   {   
@@ -520,13 +516,15 @@ include("admin area/includes/db.php");
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="#"><img height="300px" width="150px" src="img/core-img/logo.png" alt=""></a>
+                            <a href="index.php"><img style= "height:300px; width:150px;" src="img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Footer Menu -->
+						
                         <div class="footer_menu">
                             <ul>
-                              <?php echo"<li><a href='result.php?search=#'>Shop</a></li>";?>
-                                <li><a href="blog.html"></a></li>
+                                <li><a href="shop.php?table=men">Fashion</a></li>
+                                <li><a href="shop.php?table=mob">Electronics</a></li>
+                                <li><a href="shop.php?table=furniture">Home & Furniture</a></li>
                                 <li><a href="contact.php">Contact</a></li>
                             </ul>
                         </div>
@@ -580,7 +578,7 @@ include("admin area/includes/db.php");
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> RDR Infotech. All rights reserved
     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>

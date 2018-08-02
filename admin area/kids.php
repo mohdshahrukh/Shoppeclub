@@ -112,22 +112,7 @@ table{
 </tr>
 <tr>
 <td align="right"><b>Product Size</b></td>
-<td><select name="size" id="productSize" class="mr-5">
-						<option selected>Select Available Sizes</option>
-						<?php
-			   
-			   $get_size = "select * from sizecat";
-			   $run_size = mysqli_query($con, $get_size);
-			   while($row_size = mysqli_fetch_array($run_size))
-			   {   
-			   $size_id= $row_size['size_id']; 
-			   $size_title=$row_size['size_title'];
-			   echo " <option value='$size_id'>$size_title</option>";
-			   
-			   }
-			   
-			   ?>
-                    </select></td>
+<td><input type="text" name="size" /></td>
 </tr>
 <tr>
 <td align="right"><b>Product Description</b></td>

@@ -258,8 +258,7 @@ include ("functions.php");
         </div>
 
         <div class="cart-content d-flex">
-
-           <!-- Cart List Area -->
+<!-- Cart List Area -->
             <div class="cart-list">
 			<?php
 			$ip = getIp();
@@ -299,11 +298,12 @@ include ("functions.php");
 		   ?>
             </div>
 
-             <!-- Cart Summary -->
+            <!-- Cart Summary -->
             <div class="cart-amount-summary">
 
                 <h2>Summary</h2>
                 <ul class="summary-table">
+				
                     <li><span>subtotal:</span> <span><?php total_rice();?></span></li>
                     <li><span>delivery:</span> <span>Free</span></li>
                     <li><span>discount:</span> <span>-15%</span></li>
@@ -342,81 +342,9 @@ include ("functions.php");
                         <div class="widget catagory mb-50">
                             <!-- Widget Title -->
                             <h6 class="widget-title mb-30">Catagories</h6>
-							<?php 
-							if(isset($_GET['table'])){
-							$table=$_GET['table'];}
+							<?php $table='men';
 							
-							if(!isset($table)){?>
-								<div class="catagories-menu">
-                                <ul id="menu-content2" class="menu-content collapse show">
-                                    <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#clothing">
-                                        <a href="#">Women Collection</a>
-                                        <ul class="sub-menu collapse show" id="clothing">
-                                            <?php   
-											echo "<li><a href='shop.php?table=women'>All</a></li>";
-									   $get_cats = "select * from womencat";
-									   $run_cats = mysqli_query($con, $get_cats);
-									   while($row_cats = mysqli_fetch_array($run_cats))
-									   {   
-									   $cat_id= $row_cats['cat_id']; 
-									   $cat_title=$row_cats['cat_title'];
-									   echo "<li><a href='shop.php?cat=$cat_id&table=women'>$cat_title</a></li>";
-									   
-									   }
-									   
-									   ?>
-                                        </ul>
-                                    </li>
-                                    <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#shoes" class="collapsed">
-                                        <a href="#">Men Collection</a>
-                                        <ul class="sub-menu collapse" id="shoes">
-                                           <?php   
-											echo "<li><a href='shop.php?table=men'>All</a></li>";
-			   
-									   $get_cats = "select * from mencat";
-									   $run_cats = mysqli_query($con, $get_cats);
-									   while($row_cats = mysqli_fetch_array($run_cats))
-									   {   
-									   $cat_id= $row_cats['cat_id']; 
-									   $cat_title=$row_cats['cat_title'];
-									   echo "<li><a href='shop.php?cat=$cat_id&table=men'>$cat_title</a></li>";
-									   
-									   }
-									   
-									   ?>
-                                        </ul>
-                                    </li>
-                                    <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#accessories" class="collapsed">
-                                        <a href="#">Kids Collection</a>
-                                        <ul class="sub-menu collapse" id="accessories">
-                                          <?php   
-											echo "<li><a href='shop.php?table=kids'>All</a></li>";
-											
-			   
-									   $get_cats = "select * from kidcat";
-									   $run_cats = mysqli_query($con, $get_cats);
-									   while($row_cats = mysqli_fetch_array($run_cats))
-									   {   
-									   $cat_id= $row_cats['cat_id']; 
-									   $cat_title=$row_cats['cat_title'];
-									   echo "<li><a href='shop.php?cat=$cat_id&table=kids'>$cat_title</a></li>";
-									   
-									   }
-									   
-									   ?>
-                                            
-                                            
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-						<?php } 
-							
-							else{
-							if ($table=='men' or $table=='women' or $table=='kids' or $table=='')
+							if ($table=='men' or $table=='women' or $table=='kids')
 							{
 							?>
                             <!--  Catagories  -->
@@ -628,15 +556,48 @@ include ("functions.php");
                                     </li>
                                 </ul>
                             </div>
-							<?php } 
-							
-							} ?>
+							<?php } ?>
 							
                         </div>
 
-                       
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget price mb-50">
+                            <!-- Widget Title -->
+                            <h6 class="widget-title mb-30">Filter by</h6>
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Price</p>
 
-                        
+                            <div class="widget-desc">
+                                <div class="slider-range">
+                                    <div data-min="49" data-max="360" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="49" data-value-max="360" data-label-result="Range:">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    </div>
+                                    <div class="range-price">Range: $49.00 - $360.00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget color mb-50">
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Color</p>
+                            <div class="widget-desc">
+                                <ul class="d-flex">
+                                    <li><a href="#" class="color1"></a></li>
+                                    <li><a href="#" class="color2"></a></li>
+                                    <li><a href="#" class="color3"></a></li>
+                                    <li><a href="#" class="color4"></a></li>
+                                    <li><a href="#" class="color5"></a></li>
+                                    <li><a href="#" class="color6"></a></li>
+                                    <li><a href="#" class="color7"></a></li>
+                                    <li><a href="#" class="color8"></a></li>
+                                    <li><a href="#" class="color9"></a></li>
+                                    <li><a href="#" class="color10"></a></li>
+                                </ul>
+                            </div>
+                        </div>
 
                         <!-- ##### Single Widget ##### -->
                         <div class="widget brands mb-50">
@@ -658,52 +619,49 @@ include ("functions.php");
                 <div class="col-12 col-md-8 col-lg-9">
                     <div class="shop_grid_product_area">
                         
-
                         <div class="row">
 							<?php
 							$r = 30;
-							       if (isset($_GET['search'])){
-								    $user_query = $_GET['search'];
-									
-					                $get_cats="select * from men where product_keywords like '%$user_query%' union select * from women where product_keywords like '%$user_query%' union select * from kids where product_keywords like '%$user_query%' union select * from laptop where product_keywords like '%$user_query%' union select * from appliance where product_keywords like '%$user_query%' union select * from mob where product_keywords like '%$user_query%' union select * from decor where product_keywords like '%$user_query%' union select * from furniture where product_keywords like '%$user_query%' union select * from furnishing where product_keywords like '%$user_query%' order by rand()";
-									$run_cats = mysqli_query($con, $get_cats);
-									while($row_cats = mysqli_fetch_array($run_cats))
-									   {  
-										$table = $row_cats['tablename'];
-										  
-										if ($table!='mob' and $table!='laptop' and $table!='decor' and $table!='furniture' and $table!='furnishing')
-										{ $product_brand=$row_cats['product_brand'];}
-									    $id=$row_cats['id'];
-										$product_title=$row_cats['product_title'];
-									    $product_img1=$row_cats['product_img1'];
-									    $product_img2=$row_cats['product_img2'];
-									    $product_offer=$row_cats['product_offer'];
-									    $product_cost=$row_cats['product_cost'];
+							      $table ='men';
+										$get_cats = "select * from men union select * from women union select * from kids union select * from mob union select * from laptop union select * from furniture union select * from decor union select * from appliance order by rand() ";
+							$run_cats = mysqli_query($con, $get_cats);
+									    while($row_cats = mysqli_fetch_array($run_cats))
+									     {   
+										   $id= $row_cats['id']; 
+										   if ($table!='mob' and $table!='laptop' and $table!='decor' and $table!='furniture' and $table!='furnishing')
+										   { $product_brand=$row_cats['product_brand'];}
+										   $product_title=$row_cats['product_title'];
+										   $product_img1=$row_cats['product_img1'];
+										   $product_img2=$row_cats['product_img2'];
+										   $product_offer=$row_cats['product_offer'];
+										   $product_cost=$row_cats['product_cost'];
 										   
-									   echo 
+									    echo 
 									   
-											   
-									"<!-- Single Product -->
-									<div class='col-12 col-sm-6 col-lg-4'>
-										<div class='single-product-wrapper'>
-											<!-- Product Image -->
-											<div class='product-img'>
-												<img style='height:300px; width:200px;' src='admin area/product_images/$product_img1' alt=''>
-												<!-- Hover Thumb -->
-												<img class='hover-img' src='admin area/product_images/$product_img2' alt=''>
+									   
+                            "<!-- Single Product -->
+                            <div class='col-12 col-sm-6 col-lg-4'>
+                                <div class='single-product-wrapper'>
+                                    <!-- Product Image -->
+                                    <div class='product-img'>
+                                        <img style='height:300px; width:200px;' src='admin area/product_images/$product_img1' alt=''>
+                                        <!-- Hover Thumb -->
+                                        <img class='hover-img' src='admin area/product_images/$product_img2' alt=''>
 
-												
-												<!-- Favourite -->
-												<div class='product-favourite'>
-													<a href='#' class='favme fa fa-heart'></a>
-												</div>
-											</div>
+                                        <!-- Product Badge -->
+                                        <div class='product-badge offer-badge'>
+                                            <span>-$r%</span>
+                                        </div>
+                                        <!-- Favourite -->
+                                        <div class='product-favourite'>
+                                            <a href='#' class='favme fa fa-heart'></a>
+                                        </div>
+                                    </div>
 
                                     <!-- Product Description -->
                                     <div class='product-description'>";
-									
 									if ($table!='mob' and $table!='laptop' and $table!='decor' and $table!='furniture' and $table!='furnishing' ){
-									echo" <span>$product_brand</span> ";  }
+									 echo" <span>$product_brand</span> ";  }
 									echo"
                                         <a href='single-product-details.html'>
                                             <h6>$product_title</h6>
@@ -717,12 +675,12 @@ include ("functions.php");
                                                 <a href='detail.php?id=$id&table=$table' class='btn essence-btn'>Details</a>
                                             </div>
                                         </div>
-											</div>
-										</div>
-									</div>";
+                                    </div>
+                                </div>
+                            </div>";
 									   $r = $r + 4;
 									   }
-								   }
+									   
 									   ?>
 
                             
@@ -746,8 +704,7 @@ include ("functions.php");
         </div>
     </section>
     <!-- ##### Shop Grid Area End ##### -->
-
-     <!-- ##### Footer Area Start ##### -->
+ <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row">

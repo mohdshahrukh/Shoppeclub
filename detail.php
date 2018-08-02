@@ -1,5 +1,7 @@
 <?php
 include("admin area/includes/db.php");
+include("functions.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +14,7 @@ include("admin area/includes/db.php");
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Essence - Fashion Ecommerce Template</title>
+    <title>ShoppeClub - Details</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -225,22 +227,20 @@ include("admin area/includes/db.php");
             <div class="header-meta d-flex clearfix justify-content-end">
                 <!-- Search Area -->
                 <div class="search-area">
-                    <form action="#" method="post">
+                    <form action="result.php" method="get">
                         <input type="search" name="search" id="headerSearch" placeholder="Type for search">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
                 <!-- Favourite Area -->
-                <div class="favourite-area">
-                    <a href="wishlist.php"><img src="img/core-img/heart.svg" alt=""></a>
-                </div>
+                
                 <!-- User Login Info -->
                 <div class="user-login-info">
                     <a href="signup.php"><img src="img/core-img/user.svg" alt=""></a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span><?php total_items();?></span></a>
                 </div>
             </div>
 
@@ -255,60 +255,50 @@ include("admin area/includes/db.php");
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span><?php total_items();?></span></a>
         </div>
 
         <div class="cart-content d-flex">
 
             <!-- Cart List Area -->
             <div class="cart-list">
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-1.jpg" class="cart-thumb" alt="">
+			<?php
+			$ip = getIp();
+			
+			$sel="select * from cart where ip = '$ip'";
+			$res=mysqli_query($con,$sel);
+			while($r=mysqli_fetch_array($res))
+			{
+			
+			 $ip = $r[1];
+			 $id = $r[2];
+			 $table = $r[3];
+			 
+			 
+			$new_query = "select * from $table where id='$id'";
+			$run_query = mysqli_query($con,$new_query);
+			
+			while($row_cats = mysqli_fetch_array($run_query)){
+				$id=$row_cats['id'];
+				$title=$row_cats['product_title'];
+				$cost=$row_cats['product_cost'];
+				$size=$row_cats['product_size'];
+				$product_img1=$row_cats['product_img1'];
+				echo "<div class='single-cart-item'>
+                    <a href='#' class='product-image'>
+                        <center><a href='detail.php?id=$id&table=$table'><img style='height:240px; width:150px;' src='admin area/product_images/$product_img1' class='cart-thumb' alt=''></a></center>
                         <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
+                        <div class='cart-item-desc'>
+                             
+                            <h6>$title</h6>
+                            <p class='price'>Rs. $cost</p>
                         </div>
                     </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-2.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-3.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
+			</div>";
+				
+			}
+			}
+		   ?>
             </div>
 
             <!-- Cart Summary -->
@@ -316,13 +306,19 @@ include("admin area/includes/db.php");
 
                 <h2>Summary</h2>
                 <ul class="summary-table">
-                    <li><span>subtotal:</span> <span>$274.00</span></li>
+				
+                    <li><span>subtotal:</span> <span><?php total_rice();?></span></li>
                     <li><span>delivery:</span> <span>Free</span></li>
                     <li><span>discount:</span> <span>-15%</span></li>
-                    <li><span>total:</span> <span>$232.00</span></li>
+                    <li><span>total:</span> <span><?php total_price();?></span></li>
                 </ul>
-                <div class="checkout-btn mt-100">
-                    <a href="checkout.html" class="btn essence-btn">check out</a>
+                <div class="checkout-btn mt-50">
+                    <a href="cart.php" class="btn essence-btn">Update Cart</a>
+                    
+                </div>
+				<div class="checkout-btn mt-50">
+                    <a href="checkout.php" class="btn essence-btn"> check out</a>
+                    
                 </div>
             </div>
         </div>
@@ -332,7 +328,7 @@ include("admin area/includes/db.php");
     <!-- ##### Single Product Details Area Start ##### -->
     <section class="single_product_details_area d-flex align-items-center">
 		<?php 
-		
+		vart();
 		$id = $_GET['id'];
 		$table = $_GET['table'];
 		$get_cats = "select * from $table where id=$id";
@@ -350,6 +346,14 @@ include("admin area/includes/db.php");
 		   $product_img4=$row_cats['product_img4'];
 		   $product_cost=$row_cats['product_cost'];
 		   $product_offer=$row_cats['product_offer'];
+		   $product_size=$row_cats['product_size'];
+		   if ($table=='mob' or $table=='laptop'){
+		   $product_ram=$row_cats['product_ram'];
+		   $product_rom=$row_cats['product_rom'];}
+		   if ($table=='mob'){
+		   $product_camera=$row_cats['product_camera'];}
+		   if ($table=='laptop'){
+		   $product_processor=$row_cats['product_processor'];}
 		   $product_desc=$row_cats['product_desc'];
 		echo"
         <!-- Single Product Thumb -->
@@ -372,41 +376,38 @@ include("admin area/includes/db.php");
                 <h2>$product_title</h2>
             </a>
             <p class='product-price'><span class='old-price'>Rs. $product_offer</span>Rs. $product_cost</p>
-            <p class='product-desc'>$product_desc</p>
+            <p class='product-desc'>Size - $product_size</p>";
+            
+			if($table=='mob'){
+				echo "<p class='product-price'>Camera - $product_camera</p>
+				<p class='product-price'>RAM - $product_ram</p>
+            <p class='product-price'>Internal Storage - $product_rom</p>";
+			}
+			if($table=='laptop'){
+				echo "<p class='product-price'>Processor - $product_processor</p>
+				<p class='product-price'>RAM - $product_ram</p>
+            <p class='product-price'>Internal Storage - $product_rom</p>";
+			}
+			
+			
+			
+			echo"<p class='product-desc'><b>Specification</b> - $product_desc</p>
 
             <!-- Form -->
-            <form class='cart-form clearfix' method='post'>
+           
                 <!-- Select Box -->
-                <div class='select-box d-flex mt-50 mb-30'>
-                    <select name='select' id='productSize' class='mr-5'>
-                        <option value='value'>Size: XL</option>
-                        <option value='value'>Size: X</option>
-                        <option value='value'>Size: M</option>
-                        <option value='value'>Size: S</option>
-                    </select>
-                    <select name='select' id='productColor'>
-                        <option value='value'>Color: Black</option>
-                        <option value='value'>Color: White</option>
-                        <option value='value'>Color: Red</option>
-                        <option value='value'>Color: Purple</option>
-                    </select>
-                </div>
+                
                 <!-- Cart & Favourite Box -->
                 <div class='cart-fav-box d-flex align-items-center'>
                     <!-- Cart -->
-                    <button type='submit' name='addtocart' value='5' class='btn essence-btn'>Add to cart</button>
-                    <!-- Favourite -->
-                    <div class='product-favourite ml-4'>
-                        <a href='#' class='favme fa fa-heart'></a>
-                    </div>
+                    <a href=index.php?add_cart=$id&table=$table><button type='submit' class='btn essence-btn'>Add to cart</button></a>
+                   
                 </div>
-            </form>
+            
         </div>
     </section>";?>
     <!-- ##### Single Product Details Area End ##### -->
-
-    <!-- ##### Footer Area Start ##### -->
-	
+ <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row">
@@ -415,14 +416,16 @@ include("admin area/includes/db.php");
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="#"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="index.php"><img style= "height:300px; width:150px;" src="img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Footer Menu -->
+						
                         <div class="footer_menu">
                             <ul>
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="shop.php?table=men">Fashion</a></li>
+                                <li><a href="shop.php?table=mob">Electronics</a></li>
+                                <li><a href="shop.php?table=furniture">Home & Furniture</a></li>
+                                <li><a href="contact.php">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -475,7 +478,7 @@ include("admin area/includes/db.php");
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> RDR Infotech. All rights reserved
     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
@@ -483,8 +486,8 @@ include("admin area/includes/db.php");
 
         </div>
     </footer>
-	
     <!-- ##### Footer Area End ##### -->
+
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>

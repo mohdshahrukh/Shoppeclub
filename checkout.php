@@ -1,42 +1,14 @@
 <?php
-include("admin area/includes/db.php");
+include ("admin area/includes/db.php");
 include ("functions.php");
-session_start(); 
-if(isset($_SESSION['id'])){
-	header("Location: index.php");
-}
- if(isset($_POST['login']))
-{
- $email = $_POST['email'];
- $pass = $_POST['password'];
- $get = "SELECT * FROM user WHERE email ='$email' AND pass ='$pass'";
- $run = mysqli_query($con,$get);
- $row = mysqli_fetch_array($run);
- if($row)
- {
-  $_SESSION['id'] = $row['user_id'];
-  $_SESSION['name'] = $row['name'];
-  $_SESSION['email'] = $row['email'];
-  
-  header("Location: checkout.php");
- }
- else
- {
-    echo  "<script>alert('wrong details');</script>";      
- }
+session_start();
+$id = $_SESSION['id'];
+$name = $_SESSION['name'];
+
+if(!isset($_SESSION['id'])){
+	header("Location: signup.php");
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +32,7 @@ if(isset($_SESSION['id'])){
 </head>
 
 <body>
-    <!-- ##### Header Area Start ##### -->
+   <!-- ##### Header Area Start ##### -->
     <header class="header_area">
         <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
             <!-- Classy Menu -->
@@ -266,8 +238,7 @@ if(isset($_SESSION['id'])){
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
-                <!-- Favourite Area -->
-                
+               
                 <!-- User Login Info -->
                 <div class="user-login-info">
                     <a href="signup.php"><img src="img/core-img/user.svg" alt=""></a>
@@ -339,6 +310,7 @@ if(isset($_SESSION['id'])){
 
                 <h2>Summary</h2>
                 <ul class="summary-table">
+				
                     <li><span>subtotal:</span> <span><?php total_rice();?></span></li>
                     <li><span>delivery:</span> <span>Free</span></li>
                     <li><span>discount:</span> <span>-15%</span></li>
@@ -352,68 +324,151 @@ if(isset($_SESSION['id'])){
     </div>
     <!-- ##### Right Side Cart End ##### -->
 
-    <!-- ##### Single Product Details Area Start ##### -->
-    <section class="single_product_details_area d-flex align-items-center">
-        <div class="col-md-2" class="single_product_thumb clearfix" >
-            
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>Checkout</h2>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Single Product Thumb -->
-        <div class="col-md-4" class="single_product_thumb clearfix" >
-		
-		<br>
-		<h3>Log In</h3>
-            <form action="signup.php" method="post" enctype="multipart/form-data">
-			  <div class="form-group">
-				<label for="exampleInputEmail1">Email address</label>
-				<input name="email"type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-				<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-			  </div>
-			  <div class="form-group">
-				<label for="exampleInputPassword1">Password</label>
-				<input name="password"type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-			  </div>
-			  
-			  <input type="submit" Value="Log In" name="login" class="btn btn-primary">
-			
-			
-			
-			</form>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Checkout Area Start ##### -->
+    <div class="checkout_area section-padding-80">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 col-md-6">
+                    <div class="checkout_details_area mt-50 clearfix">
+						<div class="cart-page-heading mb-30">
+                            <h5><?php echo "Place Your Order $name";?></h5>
+                        </div>
+                        <div class="cart-page-heading mb-30">
+                            <h5>Shipping Address</h5>
+                        </div>
+
+                        <form action="checkout.php" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="first_name">First Name <span>*</span></label>
+                                    <input name="first_name" type="text" class="form-control" id="first_name" value="" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="last_name">Last Name <span>*</span></label>
+                                    <input name="last_name" type="text" class="form-control" id="last_name" value="" required>
+                                </div>
+                                
+                               
+                                <div class="col-12 mb-3">
+                                    <label for="street_address">Address <span>*</span></label>
+                                    <input type="text" class="form-control mb-3" id="street_address" value="">
+                                    <input name="address" type="text" class="form-control" id="street_address2" value="">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="postcode">Postcode <span>*</span></label>
+                                    <input name="postcode" type="text" class="form-control" id="postcode" value="">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="city">Town/City <span>*</span></label>
+                                    <input name="city" type="text" class="form-control" id="city" value="">
+                                </div>
+                                
+                                <div class="col-12 mb-3">
+                                    <label for="phone_number">Mob No <span>*</span></label>
+                                    <input name="mob_no" type="number" class="form-control" id="phone_number" min="0" value="">
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <label for="email_address">Email  <span>*</span></label>
+                                    <input name="email" type="email" class="form-control" id="email_address" value="">
+                                </div>
+
+                               
+                            </div>
+                        
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
+                    <div class="order-details-confirmation">
+
+                        <div class="cart-page-heading">
+                            <h5>Your Order</h5>
+                            <p>The Details</p>
+                        </div>
+
+                        <ul class="order-details-form mb-4">
+                            <li><span>Product</span> <span>Total</span></li>
+                            <li><span>Subtotal</span> <span><?php total_rice();?></span></li>
+                            <li><span>Shipping</span> <span>Free</span></li>
+                            <li><span>Total</span> <span><?php total_price();?></span></li>
+                        </ul>
+
+                        <div id="accordion" role="tablist" class="mb-4">
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingOne">
+                                    <h6 class="mb-0">
+                                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-circle-o mr-3"></i>Paypal</a>
+                                    </h6>
+                                </div>
+
+                                <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingTwo">
+                                    <h6 class="mb-0">
+                                        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-circle-o mr-3"></i>cash on delievery</a>
+                                    </h6>
+                                </div>
+                                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo quis in veritatis officia inventore, tempore provident dignissimos.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingThree">
+                                    <h6 class="mb-0">
+                                        <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><i class="fa fa-circle-o mr-3"></i>credit card</a>
+                                    </h6>
+                                </div>
+                                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse quo sint repudiandae suscipit ab soluta delectus voluptate, vero vitae</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingFour">
+                                    <h6 class="mb-0">
+                                        <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour"><i class="fa fa-circle-o mr-3"></i>direct bank transfer</a>
+                                    </h6>
+                                </div>
+                                <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est cum autem eveniet saepe fugit, impedit magni.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="submit"class="btn btn-primary" name="Submit" value="Place Order">
+                    </div>
+                </div>
+            </div></form>
         </div>
-		<div class="col-md-1" class="single_product_thumb clearfix" >
-            
-        </div>
-        <!-- Single Product Description -->
-        <div class="col-md-4" class="single_product_desc clearfix">
-		<br>
-		<h3>Sign Up</h3>
-            <form action="signup.php" method="post" enctype="multipart/form-data">
-			  <div class="form-group">
-				<label for="exampleInputname">Full Name</label>
-				<input name="name" type="text" class="form-control" id="exampleInputname" aria-describedby="emailHelp" placeholder="Enter Full Name">
-			</div>
-			  <div class="form-group">
-				<label for="exampleInputmob">Mobile No.</label>
-				<input name="mob" maxlength="10" type="text" class="form-control" id="exampleInputmob" placeholder="Enter Mobile No.">
-			  </div>
-			  <div class="form-group">
-				<label for="exampleInputEmail1">Email Address</label>
-				<input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-			  </div>
-			  <div class="form-group">
-				<label for="exampleInputPassword1">Password</label>
-				<input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-			  </div>
-			  
-			  <input type="submit" Value="Sign Up" name="signup" class="btn btn-primary">
-			
-			
-			
-			</form>
-        </div>
-    </section>
-    <!-- ##### Single Product Details Area End ##### -->
-<br>
-     <!-- ##### Footer Area Start ##### -->
+    </div>
+    <!-- ##### Checkout Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row">
@@ -494,7 +549,6 @@ if(isset($_SESSION['id'])){
     </footer>
     <!-- ##### Footer Area End ##### -->
 
-
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
@@ -512,43 +566,48 @@ if(isset($_SESSION['id'])){
 
 </html>
 
+
 <?php
 
-if(isset($_POST['signup']))
-{ 	
- $name = $_POST['name'];
- $mob = $_POST['mob'];
+if(isset($_POST['Submit']))
+{
+  	$ip = getIp();
+ $first_name = $_POST['first_name'];
+ $last_name = $_POST['last_name'];
+ $address = $_POST['address'];
+ $postcode = $_POST['postcode'];
+ $city = $_POST['city'];
+ $mob_no = $_POST['mob_no'];
  $email = $_POST['email'];
  
- $g = "SELECT email  FROM user WHERE  email ='$email'";
- $r = mysqli_query($con,$g);
- $ch = mysqli_fetch_array($r);
-if (strlen($ch['email']) != 0)
-     {
-	   echo "<script>alert('This email id is already registered...!!!');</script>"; 
-	   header('location:signup.php');
-}
-else {
-    $pass = $_POST['password'];
-
- $insert_user = "INSERT INTO user (name,email,pass,mob_no) VALUES('$name','$email','$pass','$mob')";
- $run_user = mysqli_query($con, $insert_user);
-		
+ $gel="select * from cart where ip = '$ip'";
+			$ges=mysqli_query($con,$gel);
+			while($r=mysqli_fetch_array($ges))
+			{
+			 $id = $r[2];
+			 $table = $r[3];
+	 $insert_user = "INSERT INTO checkout (user_id,ip,first_name,last_name,address,email,postcode,city,mob_no,ordered_p_table,ordered_p_id) VALUES('$id','$ip','$first_name','$last_name','$address','$email','$postcode','$city','$mob_no','$table','$id')";
+	 $run_user = mysqli_query($con, $insert_user);
+ }		
 if($run_user)
  {
-	  echo "<script>alert('successfully registered!!');</script>";  
-	  echo "<script> alert('Please Log In to Continue'); window.location.assign('signup.php'); </script>"; 
+	  echo "<script>alert('Order Placed!!');</script>";
+	  $ip = getIp();
+	  $delete_user = "DELETE FROM cart where ip='$ip'";
+      $r_user = mysqli_query($con, $delete_user);
+	  if($r_user){
+		  echo "<script> alert('Happy Shopping'); window.location.assign('index.php'); </script>";
+	  }
+	  else{
+		  echo "<script> alert('Sorry Not deleted'); window.location.assign('index.php'); </script>";
+	  }
  }
 else
  {
        echo "<script>alert('error while registering you...');</script>";
  }
 
-}
+
 }
 
 ?>
-
-
-
-
